@@ -3,14 +3,19 @@
 ## Getting Started:
 
 - Add the data folder to the root directory for python files to read properly
+- Data can then be read in the format `pd.read_excel("../data/<filename>')`
 
 ## File Structure:
 
 - Data
   - Ignored Directory, where python files will assume the csv files will be read from
 - Cleaning
-  - Replication of STATA cleaning in python
-- Utils
-  - This is where generic functions will go, broken down by portion of the pipeline
-- Constants
-  - This is where generic constants will go (repeated lists of column names, csv names), broken down by portion of the pipeline
+  - Replication of STATA cleaning in python. It includes:
+    - Scripts
+      - This is where the actualy python cleaning code is
+    - utils.py
+      - This is where generic functions will go, broken down by portion of the pipeline
+    - constants.py
+      - This is where generic constants will go (repeated lists of column names, csv names), broken down by portion of the pipeline
+- Stata
+  - Original STATA files
