@@ -1,3 +1,4 @@
+import numpy as np
 # Constants for data cleaning
 
 
@@ -51,3 +52,92 @@ COLUMN_NAME_MAP = {
     'q7': 'score',
     'q8': 'rationale'
 }
+FACTORS = [
+    {"No":0, "Yes":1,".":np.nan},
+    {"Next behavior":1, "Sim ended":2,".":np.nan}
+]
+COLUMN_FACTOR_MAP= {
+    'b1oc':0,
+	'b2oc':0,
+	'b3oc':0,
+	'b4oc':0,
+	'b5oc':0,
+	'b6oc':0,
+	'b1ac':0,
+	'b2ac':0,
+	'b3ac':0,
+	'b4ac':0,
+	'b5ac':0,
+	'b6ac':0,
+    'b1sp':0,
+	'b2sp':	0,
+	'b3sp':	0,
+	'b4sp':	0,
+	'b5sp':	0,
+	'b6sp':	0,
+	'b1cu':	0,
+	'b2cu':	0,
+	'b3cu':	0,
+	'b4cu':	0,
+	'b5cu':	0,
+	'b6cu':	0,
+	'b1re':	0,
+	'b2re':	0,
+	'b3re':	0,
+	'b4re':	0,
+	'b5re':	0,
+	'b6re':	0,
+	'b1su':	0,
+	'b2su':	0,
+	'b3su':	0,
+	'b4su':	0,
+	'b5su':	0,
+	'b6su':	0,
+    'b1re':	1,
+	'b2re':	1,
+	'b3re':	1,
+	'b4re':	1,
+	'b5re':	1,
+	'b6re':	1,
+}
+
+COLUMN_INT_MAP = [
+    'b1ti',
+   'b2ti',
+    'b3ti',
+    'b4ti',
+   'b5ti',
+    'b6ti',
+    'b1su',
+   'b2su',
+     'b3su',
+   'b4su',
+   'b5su',
+   'b6su',
+]
+CID_MAP={
+    "Claire":1,
+    "Helen":2,
+    "Maggie":3,
+    "Rachel G": 4,
+    "Rachel L": 5,
+    "Sarah": 6,
+    "Kelly":7,
+    "Rebekah":8
+}
+
+BEHAVIOR_OCCURED_COLUMNS = ['b1oc','b2oc','b3oc','b4oc','b5oc','b6oc']
+BEHAVIOR_ACKNOWLEDGED_COLUMNS = ['b1ac','b2a','b3ac','b4ac','b5ac','b6ac']
+BEHAVIOR_SPECIFIC_COLUMNS = ['b1sp','b2sp','b3sp','b4sp','b5sp','b6sp']
+BEHAVIOR_CUTOFF_COLUMNS = ['b1cu','b2cu','b3cu','b4cu','b5cu','b6cu']
+BEHAVIOR_CUTOFF_REASON_COLUMNS = ['b1re','b2re','b3re','b4re','b5re','b6re']
+BEHAVIOR_TIMELY_COLUMNS = ['b1ti','b2ti','b3ti','b4ti','b5ti','b6ti']
+BEHAVIOR_SUCCINT_COLUMNS = ['b1su','b2su','b3su','b4su','b5su','b6su']
+
+BEHAVIOR_COLUMNS = [BEHAVIOR_OCCURED_COLUMNS,
+            BEHAVIOR_ACKNOWLEDGED_COLUMNS,
+            BEHAVIOR_SPECIFIC_COLUMNS,
+            BEHAVIOR_CUTOFF_COLUMNS,
+            BEHAVIOR_CUTOFF_REASON_COLUMNS,
+            BEHAVIOR_TIMELY_COLUMNS,
+            BEHAVIOR_SUCCINT_COLUMNS]
