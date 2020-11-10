@@ -81,18 +81,6 @@ COLUMN_FACTOR_MAP= {
 	'b4cu':	0,
 	'b5cu':	0,
 	'b6cu':	0,
-	'b1re':	0,
-	'b2re':	0,
-	'b3re':	0,
-	'b4re':	0,
-	'b5re':	0,
-	'b6re':	0,
-	'b1su':	0,
-	'b2su':	0,
-	'b3su':	0,
-	'b4su':	0,
-	'b5su':	0,
-	'b6su':	0,
     'b1re':	1,
 	'b2re':	1,
 	'b3re':	1,
@@ -123,21 +111,26 @@ CID_MAP={
     "Rachel L": 5,
     "Sarah": 6,
     "Kelly":7,
-    "Rebekah":8
+    "Rebekah":8,
+    7 "Andrew" 8 "Arielle" 9 "Courtney" 10 "Mike" 11 "Rosalie" 12 "Stephanie" 13 "Vickie"
+    ".":np.nan
 }
 
 BEHAVIOR_OCCURED_COLUMNS = ['b1oc','b2oc','b3oc','b4oc','b5oc','b6oc']
-BEHAVIOR_ACKNOWLEDGED_COLUMNS = ['b1ac','b2a','b3ac','b4ac','b5ac','b6ac']
+BEHAVIOR_ACKNOWLEDGED_COLUMNS = ['b1ac','b2ac','b3ac','b4ac','b5ac','b6ac']
 BEHAVIOR_SPECIFIC_COLUMNS = ['b1sp','b2sp','b3sp','b4sp','b5sp','b6sp']
 BEHAVIOR_CUTOFF_COLUMNS = ['b1cu','b2cu','b3cu','b4cu','b5cu','b6cu']
 BEHAVIOR_CUTOFF_REASON_COLUMNS = ['b1re','b2re','b3re','b4re','b5re','b6re']
 BEHAVIOR_TIMELY_COLUMNS = ['b1ti','b2ti','b3ti','b4ti','b5ti','b6ti']
 BEHAVIOR_SUCCINT_COLUMNS = ['b1su','b2su','b3su','b4su','b5su','b6su']
 
-BEHAVIOR_COLUMNS = [BEHAVIOR_OCCURED_COLUMNS,
+BEHAVIOR_COLUMNS = zip(['tot_oc','tot_ac','tot_sp','tot_cu','total_nb_se','tot_ti','tot_su'], [BEHAVIOR_OCCURED_COLUMNS,
             BEHAVIOR_ACKNOWLEDGED_COLUMNS,
             BEHAVIOR_SPECIFIC_COLUMNS,
             BEHAVIOR_CUTOFF_COLUMNS,
             BEHAVIOR_CUTOFF_REASON_COLUMNS,
             BEHAVIOR_TIMELY_COLUMNS,
-            BEHAVIOR_SUCCINT_COLUMNS]
+            BEHAVIOR_SUCCINT_COLUMNS])
+
+CALCULATED_COLUMNS= zip(['score_dc_avg','prop_beh_ack','ti_dc_avg','prop_redirect','su_dc_avg'],
+    [['score'],['tot_ac','tot_oc'],['tot_ti','tot_ac'],['tot_sp','tot_ac'],['tot_su','tot_ac']])
