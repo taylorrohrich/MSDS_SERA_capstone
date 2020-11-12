@@ -81,6 +81,7 @@ def destring(df, included=None, first=None, last=None):
     return df
 
 def mergeData(df1, df2):
+    # more of an append than a merge
     df_new = pd.concat([df1, df2], axis=0, ignore_index=True)
     return df_new
 
