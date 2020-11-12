@@ -12,7 +12,10 @@ def generateScoreVariables(df):
     for column in df.columns:
         if column in COLUMN_FACTOR_MAP:
             df[column] = df[column].replace(FACTORS[COLUMN_FACTOR_MAP[column]])
-    
+def generateDuplicateColumn(df):
+    vidCount = df.groupby('vid').size().reset_index()
+    vidCount['duplicate']= np.where(df.groupby('vid').size().reset_index()[0] > 1, 1,0)
+    df['double_code'] = df['vid'].replace({row['vid']:row['duplicate'] for index,row in vidCount.iterrows()})
 def generateBehaviorColumns(df):
     for name,cols in BEHAVIOR_COLUMNS:
         if name == 'total_nb_se':
