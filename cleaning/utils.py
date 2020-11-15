@@ -130,7 +130,7 @@ def colMissingVals(df, columnName):
     additional column named {columnName}_miss that has a 1 for missing values in columnName
     and a 0 for a non-missing value in columnName.
     '''
-    replace_map = {1:0, np.NaN:1} # set the replacement schema
+    replace_map = {1:0, 2:0, 3:0, 0:0, np.NaN:1} # set the replacement schema
     newcol = columnName + "_miss" # generate the new column name
     df[newcol] = df[columnName].replace(replace_map) # make the new column
     return df
