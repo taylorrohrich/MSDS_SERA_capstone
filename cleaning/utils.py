@@ -23,14 +23,17 @@ def generateBehaviorColumns(df):
             df['tot_se'] = (df[cols]==2).sum(axis=1)
         else:
             df[name]=df[cols].sum(axis=1)
-
+def dropColsByName(df,start,end):
+    columns = df.columns.values
+    startIndex = np.where(columns==start)[0][0]
+    endIndex = np.where(columns==end)[0][0] + 1
+    df.drop(df.columns[startIndex:endIndex], axis=1, inplace=True)
+    
 def generateCalculatedColumns(df):
     for name,cols in CALCULATED_COLUMNS:
-        print(len(cols))
         if len(cols)==1:
             df[name]=df[cols[0]]
         else:
-            print(cols)
             df[name]=df[cols[0]] / df[cols[1]]
     
     
