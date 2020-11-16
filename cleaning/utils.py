@@ -74,6 +74,8 @@ def generateCalculatedColumns(df):
     
     
 def lowerSkip(df):
+    ''' Makes the column names lowercase and deletes the first row of the dataframe.
+    '''
     # clean column names
     df.columns = df.columns.str.lower().str.strip()
     # delete the first row
@@ -81,6 +83,8 @@ def lowerSkip(df):
     return df
 
 def dates(df):
+    ''' Makes the assessed column a string type with format mmddyyyy for easier querying.
+    '''
     # make assessed the format mmddyyyy
     if "assessed" in df.columns:
         df.assessed = pd.to_datetime(df.assessed, errors='ignore')
@@ -104,35 +108,65 @@ def basic(df):
 
 def newColMean(df, name="RowMean", included=None, first=None, last=None):
     '''
-    Provide th dataframe and the name of the new column you want created. Then either pass a 
+    Provide the dataframe and the name of the new column you want created. Then either pass a 
     list of columns to include in the calculation as included or the first and last column if
     all columns in between should also be included.
     '''
-    if included == None:
+    if included == None:  # turn first and last into a list
         df[name] = df.loc[:,first:last].mean(axis=1)
-    else:
+    else: # generate the new column
         df[name] = df[included].mean(axis=1)
         
     return df
 
 def destring(df, included=None, first=None, last=None):
-    if included == None:
+    ''' Turns the data type of all columns provided to float. Provide the dataframe and either
+    a list of specified columns as included or the first and last column name where you also
+    want the function to apply to all columns in between.
+    '''
+    if included == None: # turn first and last into a list
         included = list(df.loc[:,first:last].columns)
-    for col in included:
-        df[col] = df[col].astype(float)
+    for col in included: # loop through all columns specified
+        df[col] = df[col].astype(float) # change the datatype
     return df
 
-def mergeData(df1, df2):
-    # more of an append than a merge
+def appendData(df1, df2):
+    ''' Appends the two dataframes given and returns the appended df.
+    '''
     df_new = pd.concat([df1, df2], axis=0, ignore_index=True)
     return df_new
 
 def recode(df, included):
-    # used specifically in File 1
-    replace_map = {1:5, 2:4, 4:2, 5:1}
-    for var in included:
-        name = "r_" + str(var)
-        df[name] = df[var]
-        df[name] = df[name].replace(replace_map)
-        df = df.drop([var], axis=1)
+    '''Specifically used in File 1 to swap 1s and 5s and swap 4s and 2s in 
+    a new column that has r_ prior to the original column's name. Provide the dataframe
+    and a list of the columns for which this should be executed. Note that the original
+    column will be deleted after its corresponding new column is added.
+    '''
+    replace_map = {1:5, 2:4, 4:2, 5:1} # the replacement to take place
+    for var in included: # loop through all columns in included
+        name = "r_" + str(var) # generated the new column name
+        df[name] = df[var] # set the new column values equal to the old column values
+        df[name] = df[name].replace(replace_map) # make the replacement of values
+        df = df.drop([var], axis=1) # drop the original column
+    return df
+
+
+def replaceEmail(df, combo):
+    ''' Provide a dataframe and a dictionary where the student numbers are the key and 
+    the corresponding emails are the values. This will replace the current email for that
+    student with the one provided or simply add it if they have a missing email.
+    '''
+    for key in combo.keys(): # loop through keys (student numbers)
+        df.loc[df.student==int(key), "email"] = combo[key] # change emails
+    return df
+
+def colMissingVals(df, columnName):
+    ''' Generate a binary column that indicates whether the given column has a missing value.
+    Provide the dataframe and the column of interest. The output will be the dataframe with one 
+    additional column named {columnName}_miss that has a 1 for missing values in columnName
+    and a 0 for a non-missing value in columnName.
+    '''
+    replace_map = {1:0, 2:0, 3:0, 0:0, np.NaN:1} # set the replacement schema
+    newcol = columnName + "_miss" # generate the new column name
+    df[newcol] = df[columnName].replace(replace_map) # make the new column
     return df
