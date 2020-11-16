@@ -3,34 +3,70 @@ import pandas as pd
 import numpy as np
 
 def cleanColumns(colnames):
-    # Parse
+    '''
+    Function to clean column names and map them to human-readable terms
+    '''
+    #     Will convert column names to lower, get rid of pound symbol
     colParsed = pd.Series(colnames).str.lower().str.strip().str.replace('#','')
+    # Replace with human readable termns
     mappedCols = colParsed.replace(COLUMN_NAME_MAP)
     return mappedCols
 
 def generateScoreVariables(df):
+    '''
+    Function to convert factor variables to encoding
+    '''
+    # Iterate through columns
     for column in df.columns:
+        # If column a factor
         if column in COLUMN_FACTOR_MAP:
+            # Replace it with the encoding
             df[column] = df[column].replace(FACTORS[COLUMN_FACTOR_MAP[column]])
 def generateDuplicateColumn(df):
+    '''
+    Function to generate double_code column
+    '''
+    # get vidCount
     vidCount = df.groupby('vid').size().reset_index()
     vidCount['duplicate']= np.where(df.groupby('vid').size().reset_index()[0] > 1, 1,0)
+    # Check if duplicate
     df['double_code'] = df['vid'].replace({row['vid']:row['duplicate'] for index,row in vidCount.iterrows()})
+    
 def generateBehaviorColumns(df):
+    '''
+    Function to generate Behavior Column totals
+    '''
+    # For each set of behavior columns...
     for name,cols in BEHAVIOR_COLUMNS:
+        # Edge case: have two columns we want generated for this
         if name == 'total_nb_se':
+            # Sum the # of 1's
             df['tot_nb'] = (df[cols]==1).sum(axis=1)
+            # Sum the # of 2's
             df['tot_se'] = (df[cols]==2).sum(axis=1)
         else:
+            # Sum the set of behavior columns row-wise
             df[name]=df[cols].sum(axis=1)
+            
 def dropColsByName(df,start,end):
+    '''
+    Function to drop a slice of columns by name
+    '''
+    # Get column names
     columns = df.columns.values
+    # Get the start and end index of provided columns
     startIndex = np.where(columns==start)[0][0]
     endIndex = np.where(columns==end)[0][0] + 1
+    # Drop this slice of columns
     df.drop(df.columns[startIndex:endIndex], axis=1, inplace=True)
     
 def generateCalculatedColumns(df):
+    '''
+    Function to generate calculated columns
+    '''
+    # For each calculated column...
     for name,cols in CALCULATED_COLUMNS:
+        # Divide first column name by second
         if len(cols)==1:
             df[name]=df[cols[0]]
         else:

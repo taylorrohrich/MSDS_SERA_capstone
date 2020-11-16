@@ -5,6 +5,7 @@ import numpy as np
 COLUMN_NAME_MAP = {
     'q2': 'cid',
     'q3': 'id',
+    'q25': 'first_beh',
     'q41_1': 'b1oc',
     'q41_2': 'b2oc',
     'q41_3': 'b3oc',
@@ -126,13 +127,13 @@ BEHAVIOR_CUTOFF_REASON_COLUMNS = [
 BEHAVIOR_TIMELY_COLUMNS = ['b1ti', 'b2ti', 'b3ti', 'b4ti', 'b5ti', 'b6ti']
 BEHAVIOR_SUCCINT_COLUMNS = ['b1su', 'b2su', 'b3su', 'b4su', 'b5su', 'b6su']
 
-BEHAVIOR_COLUMNS = zip(['tot_oc', 'tot_ac', 'tot_sp', 'tot_cu', 'total_nb_se', 'tot_ti', 'tot_su'], [BEHAVIOR_OCCURED_COLUMNS,
+BEHAVIOR_COLUMNS = [(name,cols) for name in ['tot_oc', 'tot_ac', 'tot_sp', 'tot_cu', 'total_nb_se', 'tot_ti', 'tot_su'] for cols in [BEHAVIOR_OCCURED_COLUMNS,
                                                                                                      BEHAVIOR_ACKNOWLEDGED_COLUMNS,
                                                                                                      BEHAVIOR_SPECIFIC_COLUMNS,
                                                                                                      BEHAVIOR_CUTOFF_COLUMNS,
                                                                                                      BEHAVIOR_CUTOFF_REASON_COLUMNS,
                                                                                                      BEHAVIOR_TIMELY_COLUMNS,
-                                                                                                     BEHAVIOR_SUCCINT_COLUMNS])
+                                                                                                     BEHAVIOR_SUCCINT_COLUMNS]]
 
-CALCULATED_COLUMNS = zip(['score_dc_avg', 'prop_beh_ack', 'ti_dc_avg', 'prop_redirect', 'su_dc_avg'],
-                         [['score'], ['tot_ac', 'tot_oc'], ['tot_ti', 'tot_ac'], ['tot_sp', 'tot_ac'], ['tot_su', 'tot_ac']])
+CALCULATED_COLUMNS = [(name,cols) for name in ['score_dc_avg', 'prop_beh_ack', 'ti_dc_avg', 'prop_redirect', 'su_dc_avg'] for cols in 
+                         [['score'], ['tot_ac', 'tot_oc'], ['tot_ti', 'tot_ac'], ['tot_sp', 'tot_ac'], ['tot_su', 'tot_ac']]]
