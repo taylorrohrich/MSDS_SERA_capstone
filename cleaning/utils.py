@@ -170,3 +170,80 @@ def colMissingVals(df, columnName):
     newcol = columnName + "_miss" # generate the new column name
     df[newcol] = df[columnName].replace(replace_map) # make the new column
     return df
+
+def fix_email_add(string):
+    '''
+    helper function that fixed the email address to correct format
+    '''
+    result=''
+    #search if the email contains '@'
+    index=string.find("@")
+    #if the email do not contain '@'
+    #the user only enter computing id
+    if index==-1:
+        #put @virginia.edu after the computing id
+        result=string+'@virginia.edu'
+    #changing all the email address to format of computing id@virginia.edu
+    #this step is to fix the if has a typo in virginia.edu or entered gmail.com instead
+    else:
+        result=string[:index]+'@virginia.edu'
+    return result 
+
+def format_email(data):
+    '''
+    function to format all the email address, changing all the input email address to computingid@virginia.edu
+    this function is avoid if someone just input there computing id or misspelling the virginia or input the gmail.com instead.
+    '''
+    data.email =data.email.str.strip()
+    data.email =data.email.str.lower()
+    email_fix = data.loc[~data["email"].str.contains("virginia")]
+    email_fix['email']=email_fix['email'].apply(lambda x:fix_email_add(x))
+    for i in email_fix.index:
+        data.at[i,"email"]=email_fix.at[i,'email']   
+
+def convert_columns(data,beh_map,sim_map):
+    '''
+    convert categorical column to numeric 
+    data would be dataframe, beh_map is the map that changing the categorical respond in behaviour columns to numeric 
+    sim_map is the map that changing the categorical respond in sim columns to numeric 
+    '''
+    data.loc[:,'beh_fidgeting':'beh_mood_changes']=data.loc[:,'beh_fidgeting':'beh_mood_changes'].replace(beh_map)
+    data.loc[:,'sim_nervous' :'sim_enough_time']=data.loc[:,'sim_nervous' :'sim_enough_time'].replace(sim_map)
+
+def convert_numeric(data):
+    '''
+    convert string columns to float for later scalling use
+    '''
+    data.loc[:,'app_coach_stu':'app_beh_manage_teach']=data.loc[:,'app_coach_stu':'app_beh_manage_teach'].astype('float')
+    data[['sim_fbsk','sim_cmsk']]=data[['sim_fbsk','sim_cmsk']].astype('float')
+
+def generate_Iowa_Score_Scale(data):
+    '''
+    function to generate Iowa score
+    '''
+    data['beh_rating_opdefiant']=data.loc[:,'beh_quarrelsome': 'beh_uncooperative'].mean(axis=1)
+    data['beh_rating_impulsive']=data.loc[:,'beh_fidgeting':'beh_short_attention'] .mean(axis=1)
+    data['beh_rating'] =data.loc[:,'beh_fidgeting':'beh_mood_changes'].mean(axis=1)
+    #label var beh_rating_opdefiant "Iowa Connors Operational Defiant"
+    #label var beh_rating_impulsive "Iowa Connors Impulsive"
+    #label var beh_rating "Iowa Connors Overall"
+    
+
+def Reverse_Approach_Scale(data,app_map):
+    '''
+    Reverse coding management approaches scale 
+    '''
+    app_columns=[x for x in data.columns if x.startswith("app")]
+    for x in app_columns:
+        name_rc=x+'_rc'
+        data[name_rc]=data[x].replace(app_map)
+        
+
+def Generate_App_Scale(data):
+    '''
+    function to generate positibe and negative app scale
+    '''
+    data['manage_app_negative']= data.loc[:,'app_coach_stu':'app_discp_refer'].mean(axis=1)
+    data['manage_app_positive']=data.loc[:,'app_confer_stu':'app_beh_manage_teach'].mean(axis=1)
+        
+    
