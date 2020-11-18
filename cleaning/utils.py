@@ -246,4 +246,41 @@ def Generate_App_Scale(data):
     data['manage_app_negative']= data.loc[:,'app_coach_stu':'app_discp_refer'].mean(axis=1)
     data['manage_app_positive']=data.loc[:,'app_confer_stu':'app_beh_manage_teach'].mean(axis=1)
         
-    
+
+def drop_duplicate(data):
+    '''
+    function to drop duplicate observation
+    data would be dataframe that need to check the duplicate
+    '''
+    #convert the startdate to datestamp()
+    data['startdate']=pd.to_datetime(data.startdate)
+    duplicated=data[data.duplicated(['email'],keep=False)]
+    duplicated_email=pd.unique(duplicated['email'])
+    column_n=len(data.columns)
+    #for each duplicated email
+    for email in duplicated_email:
+        #find the observation contains duplicated email
+        rows=duplicated.loc[duplicated['email'] == email]
+        #count the na in the observation
+        count_NA=rows.isnull().sum(axis=1).tolist()
+        min_NA=min(count_NA)
+        #if all duplicated observations have all information
+        if sum(count_NA)==0:
+            #drop the observation other the earliest start date
+            drops=rows.loc[rows.startdate!=min(rows['startdate'])]
+            email=drops['email']
+            startdate=drops['startdate']
+            i=data[((data.email == email) &( data.startdate == startdate))].index
+            data=data.drop(i)
+        #drop the observation with less missing value
+        else:
+            index=count_NA.index(min_NA)
+            for i in range(len(count_NA)):
+                if i!= index:
+                    a=rows.iloc[index,]
+                    email=a.email
+                    startdate=a.startdate
+                    i=data[((data.email == email) &( data.startdate == startdate))].index
+                    data=data.drop(i)
+    return data
+                
