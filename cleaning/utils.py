@@ -215,7 +215,10 @@ def convert_numeric(data):
     convert string columns to float for later scalling use
     '''
     data.loc[:,'app_coach_stu':'app_beh_manage_teach']=data.loc[:,'app_coach_stu':'app_beh_manage_teach'].astype('float')
-    data[['sim_fbsk','sim_cmsk']]=data[['sim_fbsk','sim_cmsk']].astype('float')
+    if 'sim_fbsk' in data.columns:
+        data[['sim_fbsk']]=data[['sim_fbsk']].astype('float')
+    if 'sim_cmsk' in data.columns:
+        data[['sim_cmsk']]=data[['sim_cmsk']].astype('float')
 
 def generate_Iowa_Score_Scale(data):
     '''
