@@ -276,8 +276,8 @@ def drop_duplicate(data):
         else:
             index=count_NA.index(min_NA)
             for i in range(len(count_NA)):
-                if i!= index:
-                    a=rows.iloc[index,]
+                if i != index:
+                    a=rows.iloc[i,]
                     email=a.email
                     startdate=a.startdate
                     i=data[((data.email == email) &( data.startdate == startdate))].index
