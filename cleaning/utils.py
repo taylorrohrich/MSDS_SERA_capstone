@@ -73,7 +73,7 @@ def generateCalculatedColumns(df):
             df[name]=df[cols[0]] / df[cols[1]]
     
     
-def lowerSkip(df):
+def lower_skip(df):
     ''' Makes the column names lowercase and deletes the first row of the dataframe.
     '''
     # clean column names
@@ -82,13 +82,12 @@ def lowerSkip(df):
     df = df.iloc[1:,:]
     return df
 
-def dates(df):
-    ''' Makes the assessed column a string type with format mmddyyyy for easier querying.
+def dates(df, colname):
+    ''' Makes the given column a string type with format mmddyyyy for easier querying.
     '''
-    # make assessed the format mmddyyyy
-    if "assessed" in df.columns:
-        df.assessed = pd.to_datetime(df.assessed, errors='ignore')
-        df.assessed = df.assessed.apply(lambda x: x.strftime('%m%d%Y'))
+    # make column the format mmddyyyy
+    df[colname] = pd.to_datetime(df[colname], errors='ignore')
+    df[colname] = df[colname].apply(lambda x: x.strftime('%m%d%Y'))
     return df
 
 def basic(df):
@@ -106,7 +105,7 @@ def basic(df):
         df.student.astype(int, copy=False, errors='ignore')
     return df
 
-def newColMean(df, name="RowMean", included=None, first=None, last=None):
+def new_col_mean(df, name="RowMean", included=None, first=None, last=None):
     '''
     Provide the dataframe and the name of the new column you want created. Then either pass a 
     list of columns to include in the calculation as included or the first and last column if
@@ -130,7 +129,7 @@ def destring(df, included=None, first=None, last=None):
         df[col] = df[col].astype(float) # change the datatype
     return df
 
-def appendData(df1, df2):
+def append_data(df1, df2):
     ''' Appends the two dataframes given and returns the appended df.
     '''
     df_new = pd.concat([df1, df2], axis=0, ignore_index=True)
@@ -161,7 +160,7 @@ def replace_emails(dataframe, csv):
         dataframe.loc[dataframe.student==int(row[1]), "email"] = row[2]
     return dataframe
 
-def colMissingVals(df, columnName):
+def col_missing_vals(df, columnName):
     ''' Generate a binary column that indicates whether the given column has a missing value.
     Provide the dataframe and the column of interest. The output will be the dataframe with one 
     additional column named {columnName}_miss that has a 1 for missing values in columnName
