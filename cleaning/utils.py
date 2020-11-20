@@ -151,14 +151,15 @@ def recode(df, included):
     return df
 
 
-def replaceEmail(df, combo):
-    ''' Provide a dataframe and a dictionary where the student numbers are the key and 
-    the corresponding emails are the values. This will replace the current email for that
+def replace_emails(dataframe, csv):
+    ''' Provide a dataframe and a csv name that has the first column of student ids and the second column 
+    as the corresponding email address. This will replace the current email for that
     student with the one provided or simply add it if they have a missing email.
     '''
-    for key in combo.keys(): # loop through keys (student numbers)
-        df.loc[df.student==int(key), "email"] = combo[key] # change emails
-    return df
+    replacements = pd.read_csv(csv)
+    for index, row in replacements.iterrows():
+        dataframe.loc[dataframe.student==int(row[1]), "email"] = row[2]
+    return dataframe
 
 def colMissingVals(df, columnName):
     ''' Generate a binary column that indicates whether the given column has a missing value.
