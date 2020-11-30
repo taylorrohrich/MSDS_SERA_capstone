@@ -9,9 +9,9 @@
 
 - Data
   - Ignored Directory, where python files will assume the csv files will be read from
-- Cleaning
-  - Replication of STATA cleaning in python. It includes:
-    - Scripts
+- Stata Replication
+  - Replication of STATA cleaning and randomization in python. It includes:
+    - scripts
       - This is where the actualy python cleaning code is
     - utils.py
       - This is where generic functions will go, broken down by portion of the pipeline
