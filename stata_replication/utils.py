@@ -23,7 +23,7 @@ def basic(df):
         df.student.astype(int, copy=False, errors='ignore')
     return df
 
-def cleanColumns(colnames):
+def clean_columns(colnames):
     '''
     Function to clean column names and map them to human-readable terms
     '''
@@ -82,7 +82,7 @@ def destring(df, included=None, first=None, last=None):
         df[col] = df[col].astype(float) # change the datatype
     return df
 
-def dropColsByName(df,start,end):
+def drop_cols_by_name(df,start,end):
     '''
     Function to drop a slice of columns by name
     '''
@@ -162,7 +162,7 @@ def format_email(data):
         data.at[i,"email"]=email_fix.at[i,'email']   
 
 
-def generateCalculatedColumns(df):
+def generate_calculated_columns(df):
     '''
     Function to generate calculated columns
     '''
@@ -182,7 +182,7 @@ def generate_app_scale(data):
     data['manage_app_positive']=data.loc[:,'app_confer_stu':'app_beh_manage_teach'].mean(axis=1)
         
 
-def generateBehaviorColumns(df):
+def generate_behavior_columns(df):
     '''
     Function to generate Behavior Column totals
     '''
@@ -198,7 +198,7 @@ def generateBehaviorColumns(df):
             # Sum the set of behavior columns row-wise
             df[name]=df[cols].sum(axis=1)
             
-def generateDuplicateColumn(df):
+def generate_duplicate_column(df):
     '''
     Function to generate double_code column
     '''
@@ -220,7 +220,7 @@ def generate_iowa_score_scale(data):
     #label var beh_rating "Iowa Connors Overall"
     
 
-def generateScoreVariables(df):
+def generate_score_variables(df):
     '''
     Function to convert factor variables to encoding
     '''
