@@ -1,4 +1,4 @@
-from constants import COLUMN_NAME_MAP, BEHAVIOR_COLUMNS,COLUMN_FACTOR_MAP,FACTORS, CALCULATED_COLUMNS
+from constants import COLUMN_NAME_MAP,COLUMN_NAME_MAP_2, BEHAVIOR_COLUMNS,COLUMN_FACTOR_MAP,FACTORS, CALCULATED_COLUMNS
 import pandas as pd
 import numpy as np
 
@@ -23,14 +23,17 @@ def basic(df):
         df.student.astype(int, copy=False, errors='ignore')
     return df
 
-def clean_columns(colnames):
+def clean_columns(colnames,alternateColNames = False):
     '''
     Function to clean column names and map them to human-readable terms
     '''
     #     Will convert column names to lower, get rid of pound symbol
     colParsed = pd.Series(colnames).str.lower().str.strip().str.replace('#','')
     # Replace with human readable termns
-    mappedCols = colParsed.replace(COLUMN_NAME_MAP)
+    if alternateColNames:
+        mappedCols = colParsed.replace(COLUMN_NAME_MAP_2)
+    else:
+        mappedCols = colParsed.replace(COLUMN_NAME_MAP)
     return mappedCols
 
 def col_missing_vals(df, columnName):
