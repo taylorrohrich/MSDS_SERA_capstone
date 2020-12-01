@@ -174,7 +174,7 @@ def generateCalculatedColumns(df):
         else:
             df[name]=df[cols[0]] / df[cols[1]]
 
-def Generate_App_Scale(data):
+def generate_app_scale(data):
     '''
     function to generate positibe and negative app scale
     '''
@@ -208,7 +208,7 @@ def generateDuplicateColumn(df):
     # Check if duplicate
     df['double_code'] = df['vid'].replace({row['vid']:row['duplicate'] for index,row in vidCount.iterrows()})
     
-def generate_Iowa_Score_Scale(data):
+def generate_iowa_score_scale(data):
     '''
     function to generate Iowa score
     '''
@@ -277,7 +277,7 @@ def replace_emails(dataframe, csv):
         dataframe.loc[dataframe.student==int(row[1]), "email"] = row[2]
     return dataframe
 
-def Reverse_Approach_Scale(data,app_map):
+def reverse_approach_scale(data,app_map):
     '''
     Reverse coding management approaches scale 
     '''
