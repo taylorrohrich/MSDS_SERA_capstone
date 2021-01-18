@@ -2,7 +2,7 @@
 
 ## Getting Started:
 
-- Add the data folder to the root directory for python files to read properly
+- Add the data folder to root directory for python files to read properly
 - Data can then be read in the format `pd.read_excel("../data/<filename>')`
 
 ## File Structure:
