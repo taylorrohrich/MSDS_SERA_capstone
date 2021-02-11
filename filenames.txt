@@ -1,3 +1,4 @@
+--- 01_cpp__clean ---
 "2018_2019_CRTSE_SummerSecondary_PGMT_4thyrBMT_ItemsRemoved.xls"
 "2018_2019_DAS_SummerSecondary_PGMT_4thyrBMT_Recoded_Missing_ItemNamesRemoved.xls"
 "2018_2019_Demography_Survey_SummerSecondary_PGMT.xls"
@@ -14,3 +15,22 @@
 "2018_2019_TSE_SummerSecondary_PGMT_4thyrBMT.xls"
 "2018_2019_YTRT_SummerSecondary_PGMT_4thyrBMT_Missing_ItemNamesRemoved.xls"
 "SimTeacher Randomization Fall 2018 Spring 2019.xls"
+--- o2_sim_survey_clean ---
+"Post-Simulator Baseline Student Survey- Summer 2018_January 22, 2020_16.58.csv"
+"Post-Simulator Baseline Student Survey (only for Redos)- Summer 2018 - Copy_January 23, 2020_07.22.csv"
+"Post-Simulator Baseline Student Survey- Fall 2018_July 24, 2019_15.43.csv"
+"Post-Simulator Student Survey (Round 1)- Spring 2019_July 24, 2019_15.25.csv"
+"Post-Simulator Student Survey Round 2- Spring 2019_July 24, 2019_15.24.csv"
+"SimTeacher_Randomization_Fall2018_Spring2019.dta" !!
+"2018_2019_CPP_data.dta" !!
+--- 3 ---
+"Summer 2018 Behavioral Redirections Baseline.xlsx"
+"Fall 2018 Behavioral Redirections Baseline_July 24, 2019_14.06"
+"Spring2019_BR_CodedPerformanceOutcomes"
+"2019 Spring- Exit- Behavioral Redirections_August 7, 2019_08.26"
+--- 4 ---
+N/A
+--- Randomization ---
+"2019_2020_RosterDemo_Fall2019_CoachingSessions_Final.xls"
+
+
