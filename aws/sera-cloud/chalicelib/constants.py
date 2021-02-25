@@ -200,3 +200,46 @@ CALCULATED_COLUMNS = list(zip(['score_dc_avg', 'prop_beh_ack', 'ti_dc_avg', 'pro
 
 # [(name,cols) for name in ['score_dc_avg', 'prop_beh_ack', 'ti_dc_avg', 'prop_redirect', 'su_dc_avg'] for cols in 
 #                          [['score'], ['tot_ac', 'tot_oc'], ['tot_ti', 'tot_ac'], ['tot_sp', 'tot_ac'], ['tot_su', 'tot_ac']]]
+
+## ENV VARIABLES
+INPUT_BUCKET = 'sera-raw-data'
+
+OUTPUT_BUCKET = 'sera-parsed-data'
+# ### FILES TO READ FROM S3
+CRTSE = "2018_2019_CRTSE_SummerSecondary_PGMT_4thyrBMT_ItemsRemoved.csv"
+DAS = "2018_2019_DAS_SummerSecondary_PGMT_4thyrBMT_Recoded_Missing_ItemNamesRemoved.csv"
+DEMOG = "2018_2019_Demography_Survey_SummerSecondary_PGMT.csv"
+MISS = "2017_2018_CCS1_DemographySurvey_NumID_NoConsentRemoved.csv"
+FIT = "2018_2019_FIT_SummerSecondary_PGMT_4thyrBMT_Recoded_ItemNamesRemoved.csv"
+GRIT = "2018_2019_GRIT_SummerSecondary_PGMT_4thyrBMT_ReverseCoded_OrigRemoved.csv"
+IMTS = "2018_2019_IMTS_SummerSecondary_PGMT_4thyrBMT_Missing_ItemNamesRemoved.csv"
+NEO = "2018_2019_NEO_SummerSecondary_PGMT_ReverseCoded_OrigRemoved.csv"
+CONTACT = "Student_Contact_2018_2019.csv"
+NEO_2017 = "NEO 2017 09 27.csv"
+MISSING = "2018_2019_NEO_Missing.csv"
+RSQ = "2018_2019_RSQ_SummerSecondary_PGMT_ReverseCoded_OrigRemoved.csv"
+RSQ2 = "2018_2019_RSQ_Missing.csv"
+TMAS = "2018_2019_TMAS_SummerSecondary_PGMT_4thyrBMT_Missing_ReverseCoded_OrigRemoved_ItemNamesRemoved.csv"
+TSE = "2018_2019_TSE_SummerSecondary_PGMT_4thyrBMT.csv"
+YTRT = "2018_2019_YTRT_SummerSecondary_PGMT_4thyrBMT_Missing_ItemNamesRemoved.csv"
+RAND = "2018_2019_participant_measures.csv"
+
+DATA_2A="2018_summer_baseline_postsim_survey.csv"
+REDO="2018_summer_baseline_postsim_survey_redos.csv"
+DATA_2B = "2018_fall_baseline_postsim_survey.csv"
+DATA_2C = "2019_spring_precoach_br_postsim_survey.csv"
+DATA_2D = "2019_spring_postcoach_br_postsim_survey.csv"
+RANDOMIZATION = "2018_2019_participant_measures.csv"
+CPP = "2018_2019_participant_measures.csv"
+
+DATA_11 = '2018_summer_baseline_br_perform.csv'
+DATA_12 = '2018_fall_baseline_br_perform.csv'
+TRACKER_DATA = '2019_spring_tracker.csv'
+COACHING_DATA = '2019_spring_coaching_video.csv'
+DATA_2 = '2019_spring_coach_br_perform.csv'
+DATA_3 = '2019_spring_exit_br_perform.csv'
+
+
+FILENAMES = { 'CRTSE': {'name':CRTSE}, 'DAS': {'name':DAS}, 'DEMOG': {'name':DEMOG},'MISS': {'name':MISS},'FIT':{'name':FIT},'GRIT':{'name':GRIT},'IMTS':{'name':IMTS},'NEO':{'name':NEO},'CONTACT':{'name':CONTACT},'NEO_2017':{'name':NEO_2017},'MISSING':{'name':MISSING},'RSQ':{'name':RSQ},'RSQ2':{'name':RSQ2},'TMAS':{'name':TMAS},'TSE':{'name':TSE},'YTRT':{'name':YTRT},'RAND':{'name':RAND},'DATA_2A':{'name':DATA_2A},'REDO':{'name':REDO},'DATA_2B':{'name':DATA_2B},'DATA_2C':{'name':DATA_2C},'DATA_2D':{'name':DATA_2D},'RANDOMIZATION':{'name':RANDOMIZATION},'CPP':{'name':CPP},'DATA_11': {'name':DATA_11},'DATA_12':{'name':DATA_12},'TRACKER_DATA': {'name':TRACKER_DATA},'COACHING_DATA':{'name':COACHING_DATA},'DATA_2':{'name':DATA_2},'DATA_3':{'name':DATA_3}}
+FILENAMES = {'DATA_2A':{'name':DATA_2A},'REDO':{'name':REDO},'DATA_2B':{'name':DATA_2B},'DATA_2C':{'name':DATA_2C},'DATA_2D':{'name':DATA_2D},'RANDOMIZATION':{'name':RANDOMIZATION},'CPP':{'name':CPP},'DATA_11': {'name':DATA_11},'DATA_12':{'name':DATA_12},'TRACKER_DATA': {'name':TRACKER_DATA},'COACHING_DATA':{'name':COACHING_DATA},'DATA_2':{'name':DATA_2},'DATA_3':{'name':DATA_3}}
+#

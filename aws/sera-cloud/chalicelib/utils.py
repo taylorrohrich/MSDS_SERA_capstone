@@ -1,4 +1,4 @@
-from constants import COLUMN_NAME_MAP,COLUMN_NAME_MAP_2, BEHAVIOR_COLUMNS,COLUMN_FACTOR_MAP,FACTORS, CALCULATED_COLUMNS
+from chalicelib.constants import *
 import pandas as pd
 import numpy as np
 
@@ -208,12 +208,6 @@ def generate_behavior_columns(df):
             df['tot_se'] = (df[cols]==2).sum(axis=1)
         else:
             # Sum the set of behavior columns row-wise
-            if name == 'tot_su':
-                print('hi')
-                # print(BEHAVIOR_COLUMNS)
-                # print(name)
-                # print(cols)
-                print(df[cols])
             cols = df[cols]
             df[name]=cols[cols.applymap(isnumber)].fillna(0).astype('int64').sum(axis=1)
             
@@ -291,9 +285,12 @@ def replace_emails(dataframe, csv):
     as the corresponding email address. This will replace the current email for that
     student with the one provided or simply add it if they have a missing email.
     '''
-    replacements = pd.read_csv(csv)
+    if type(csv)=='string':
+        replacements = pd.read_csv(csv)
+    else:
+        replacements = csv
     for index, row in replacements.iterrows():
-        dataframe.loc[dataframe.student==int(row[1]), "email"] = row[2]
+        dataframe.loc[dataframe.student==int(row[0]), "email"] = row[1]
     return dataframe
 
 def reverse_approach_scale(data,app_map):

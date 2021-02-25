@@ -1,10 +1,52 @@
 import pandas as pd
 import numpy as np
 from utils import *
-from sklearn.preprocessing import LabelEncoder
 import os
-import scipy.stats as stats
+from collections import defaultdict 
 os.chdir('/Users/taylorrohrich/Desktop/Taylor Rohrich/Code/MSDS_SERA_capstone/data')
+
+### FILES TO READ FROM S3
+
+CRTSE = "2018_2019_CRTSE_SummerSecondary_PGMT_4thyrBMT_ItemsRemoved.xls"
+DAS = "2018_2019_DAS_SummerSecondary_PGMT_4thyrBMT_Recoded_Missing_ItemNamesRemoved.xls"
+DEMOG = "2018_2019_Demography_Survey_SummerSecondary_PGMT.xls"
+MISS = "2017_2018_CCS1_DemographySurvey_NumID_NoConsentRemoved.xlsx"
+FIT = "2018_2019_FIT_SummerSecondary_PGMT_4thyrBMT_Recoded_ItemNamesRemoved.xls"
+GRIT = "2018_2019_GRIT_SummerSecondary_PGMT_4thyrBMT_ReverseCoded_OrigRemoved.xls"
+IMTS = "2018_2019_IMTS_SummerSecondary_PGMT_4thyrBMT_Missing_ItemNamesRemoved.xls"
+NEO = "2018_2019_NEO_SummerSecondary_PGMT_ReverseCoded_OrigRemoved.xls"
+CONTACT = "Student_Contact_2018_2019.xls"
+NEO_2017 = "NEO 2017 09 27.xlsx"
+MISSING = "2018_2019_NEO_Missing.xls"
+RSQ = "2018_2019_RSQ_SummerSecondary_PGMT_ReverseCoded_OrigRemoved.xls"
+RSQ2 = "2018_2019_RSQ_Missing.xlsx"
+TMAS = "2018_2019_TMAS_SummerSecondary_PGMT_4thyrBMT_Missing_ReverseCoded_OrigRemoved_ItemNamesRemoved.xls"
+TSE = "2018_2019_TSE_SummerSecondary_PGMT_4thyrBMT.xls"
+YTRT = "2018_2019_YTRT_SummerSecondary_PGMT_4thyrBMT_Missing_ItemNamesRemoved.xls"
+RAND = "SimTeacher Randomization Fall 2018 Spring 2019.xls"
+
+DATA_2A="Post-Simulator Baseline Student Survey- Summer 2018_January 22, 2020_16.58.csv"
+REDO="Post-Simulator Baseline Student Survey (only for Redos)- Summer 2018 - Copy_January 23, 2020_07.22.csv"
+DATA_2B = "Post-Simulator Baseline Student Survey- Fall 2018_July 24, 2019_15.43.csv"
+DATA_2C = "Post-Simulator Student Survey (Round 1)- Spring 2019_July 24, 2019_15.25.csv"
+DATA_2D = "Post-Simulator Student Survey Round 2- Spring 2019_July 24, 2019_15.24.csv"
+RANDOMIZATION = "SimTeacher_Randomization_Complete_Fall2018_Spring2019.csv"
+CPP = "2018_2019_CPP_data.csv"
+
+DATA_11 = 'Summer 2018 Behavioral Redirections Baseline.xls'
+DATA_12 = 'Fall 2018 Behavioral Redirections Baseline_July 24, 2019_14.06.csv'
+TRACKER_DATA = 'Spring2019_Tracker.csv'
+COACHING_DATA = 'S19 BR Coaching Video Assignments_Cleaned.csv'
+DATA_2 = 'Spring2019_BR_CodedPerformanceOutcomes.xls'
+DATA_3 = '2019 Spring- Exit- Behavioral Redirections_August 7, 2019_08.26.csv'
+
+
+
+
+
+
+
+
 
 ###### 01_cpp_clean.ipynb
 
@@ -435,7 +477,7 @@ full = full.set_index('email')
 full=full.sort_values(by=['email'])
 full.reset_index(inplace=True)
 full.to_csv("Fall2018Spring2019_Post-Survey_Cleaned.csv",index=False)
-randomization=pd.read_excel("SimTeacher Randomization Fall 2018 Spring 2019.xls")
+randomization=pd.read_csv("SimTeacher_Randomization_Complete_Fall2018_Spring2019.csv")
 randomization.columns = pd.Series(randomization.columns).str.lower().str.strip()
 randomization
 full=full.merge(randomization,left_on='email',right_on="email",how='inner')
@@ -449,6 +491,7 @@ full=full.rename(columns = {'name_full':'name'})
 full.drop('name_x', inplace=True, axis=1)
 full.drop('name_y', inplace=True, axis=1)
 partTwo = full
+full.to_csv('fulltest.csv',index=False)
 ###### Rest of 2?
 
 ###### 3.ipynb
@@ -458,11 +501,13 @@ def performance_clean(csv_name,isExcel=False,sheet_name=None,sid=2,time=0):
     Base function that handles core cleaning of all of the part 3 files
     '''
     # Read data
-    data = pd.read_excel(f"{csv_name}.xlsx",sheet_name=sheet_name,skiprows=[1,2]) if isExcel else pd.read_csv(f"../data/{csv_name}.csv",skiprows=[1,2])
+    data = pd.read_excel(f"{csv_name}.xlsx",sheet_name=sheet_name,skiprows=[1,2]) if isExcel else pd.read_csv(f"{csv_name}.csv",skiprows=[1,2])
     # Get cleaned column names
     data.columns = clean_columns(data.columns,csv_name == 'Fall 2018 Behavioral Redirections Baseline_July 24, 2019_14.06')
     # Set sid, time, vid
     # Construct vid column
+    if csv_name == 'Spring2019_BR_CodedPerformanceOutcomes':
+        print(np.sum(data['id']==67))
     data['sid']=sid
     data['time']=time
     data['vid'] = data['id'].astype(str) + "_" + data['sid'].astype(str)
@@ -474,7 +519,7 @@ def performance_clean(csv_name,isExcel=False,sheet_name=None,sid=2,time=0):
     generate_behavior_columns(data)
     # Get calculated columns
     generate_calculated_columns(data)
-    data = data.drop_duplicates(['id','time'],keep= 'first')
+    #data = data.drop_duplicates(['id','time'],keep= 'first')
     return data
 def performance_clean_pt_1(csv_name,isExcel=False,sheet_name=None,time=0):
     '''
@@ -486,6 +531,7 @@ def performance_clean_pt_1(csv_name,isExcel=False,sheet_name=None,time=0):
     if csv_name == 'Fall 2018 Behavioral Redirections Baseline_July 24, 2019_14.06':
         drop_cols_by_name(base,'q25','q8')
         drop_cols_by_name(base,'q20','q26')
+    base = base.drop_duplicates(['id','time'],keep= 'first')
     return base
 data11= performance_clean_pt_1('Summer 2018 Behavioral Redirections Baseline',isExcel=True, sheet_name='Summer 2018 Behavioral Redirect')
 data12= performance_clean_pt_1('Fall 2018 Behavioral Redirections Baseline_July 24, 2019_14.06')
@@ -496,23 +542,66 @@ def performance_clean_pt_2(csv_name,isExcel=False,sheet_name=None):
     '''
     # Get base
     base = performance_clean(csv_name,isExcel,sheet_name)
+    print('base')
+    print(base.shape)
+    #print(base)
     # Drop specific column ranges
     drop_cols_by_name(base,'startdate','finished')
     drop_cols_by_name(base,'responseid','userlanguage')
+    base.loc[base['id']==67,:].to_csv('base_testing.csv',index=False)
     # Get coaching data
     coachingData = pd.read_csv('S19 BR Coaching Video Assignments_Cleaned.csv')[['id','coder_num','codingtype','cid','sid']]
     # Merge coaching
-    withCoaching = base.merge(coachingData,on=['id','cid'],how='left')
-    withCoaching['sid']=withCoaching['sid_y']
-    withCoaching.drop(columns=['sid_x','sid_y'])
+    print(base.loc[base['id']==67,['b1su','b2su','b3su','b4su','b5su','id','cid','sid']])
+    #print(coachingData['sid'].values)
+    base['sid']=np.nan
+    idCount = defaultdict(int)
+    newSids = []
+    for index, row in base.iterrows():
+        rowId = row['id']
+
+        rowSids = coachingData.loc[coachingData['id']==rowId,'sid'].values
+        if len(rowSids) > idCount[rowId]:
+            newSids.append(rowSids[idCount[rowId]])
+            idCount[rowId]+=1
+        else:
+            newSids.append(np.nan)
+        # row['sid']
+    print(newSids)
+    print(len(newSids),base.shape)
+    base['sid'] = newSids
+    print(base.loc[base['id']==67,['b1su','b2su','b3su','b4su','b5su','id','cid','sid']])
+    withCoaching = base
+    print('withCoaching')
+    print(withCoaching.shape)
+    # withCoaching = base.merge(coachingData,on=['id','cid'],how='left')
+    # withCoaching['sid']=withCoaching['sid_y']
+    # withCoaching.drop(columns=['sid_x','sid_y'])
+    # #withCoaching = withCoaching.sort_values(by=['id','sid','cid'],)
+    # withCoaching = withCoaching.drop_duplicates(['id','sid','cid'],keep='first')
+    print(withCoaching.loc[withCoaching['id']==67,['b1su','b2su','b3su','b4su','b5su','id','cid','time','sid']])
     # Get tracker data
     trackerData = pd.read_csv('Spring2019_Tracker.csv')[['id_student','email','id_coach','id_interactor']].rename(columns={'id_student':'id'})
     # trackerData.to_csv('tracker.csv')
     # Merge tracking
+    print('trackerData')
+    print(trackerData.head())
+    print(trackerData['id'].shape)
+    print(withCoaching['id'].dtype)
     withTracking = withCoaching.merge(trackerData,on='id',how='inner') 
+    print('withTreacking')
+    print(withTracking.shape)
     withTracking['time']=np.where(withTracking['sid'] == 5, 1,2)
+    withTracking= withTracking.drop_duplicates(['id','time'],keep= 'first')
+    #     print(csv_name)
+    # base.to_csv('base.csv',index=False) if csv_name=='Spring2019_BR_CodedPerformanceOutcomes' else None
+    # print('id' in base.columns)
+    print("----heere----")
+    print(withTracking.shape)
+    print(withTracking.loc[withTracking['id']==67,['b1su','b2su','b3su','b4su','b5su']])
     return withTracking
 data2=performance_clean_pt_2('Spring2019_BR_CodedPerformanceOutcomes',isExcel=True, sheet_name='Sheet1')
+print(data2.shape)
 def performance_clean_pt_3(csv_name,isExcel=False,sheet_name=None):
     '''
     3c cleaning
@@ -525,22 +614,36 @@ def performance_clean_pt_3(csv_name,isExcel=False,sheet_name=None):
     drop_cols_by_name(base,'startdate','finished')
     drop_cols_by_name(base,'responseid','userlanguage')
     drop_cols_by_name(base,'q12','q26')
+    base = base.drop_duplicates(['id','time'],keep='last')
     return base
 data3=performance_clean_pt_3('2019 Spring- Exit- Behavioral Redirections_August 7, 2019_08.26')
 data2.to_csv('data2.csv')
 data1.to_csv('data1.csv')
 partThree = data1.append([data2, data3])
+partThree['id']=partThree['id'].astype('str')
 partThree.to_csv('three.csv')
+randomization=pd.read_csv("SimTeacher_Randomization_Complete_Fall2018_Spring2019.csv")
+randomization.columns = pd.Series(randomization.columns).str.lower().str.strip()
+randomization['id']=randomization['id'].astype('str')
+print(partThree['id'])
+print(randomization['id'])
+partThree = partThree.merge(randomization.loc[:,['id','email']],left_on='id',right_on="id",how='left')
+partThree.to_csv('three.csv')
+# partThree['email'] = np.where(partThree['email_x'] == "", )
+
+partThree['email'] = [email[0] if len(email[0]) else email[1] for email in zip(partThree['email_x'].fillna(''),partThree['email_y'].fillna(''))]
+partThree=partThree.loc[partThree['email'].str.len() > 0,:]
+#partThree.to_csv('three.csv')
 ###### 4
 
 data1 = partThree
 data2 = partTwo
-data1.to_csv('dataone.csv')
+data1.sort_values(by='email').to_csv('dataone.csv')
 #data1.update(data2, overwrite=False)
 
 data2.to_csv('datatwo.csv')
 outcome_merged = pd.merge(data1, data2, on=['email', 'time'], how='outer')
-outcome_merged = outcome_merged[:371]
+#outcome_merged = outcome_merged[:371]
 outcome_merged.to_csv('ocmerged.csv')
 def colMissingVals(df, columnList):
     ''' Generate a binary column that indicates whether the given column has a missing value.
@@ -563,7 +666,9 @@ for col in missing_cols_list_2:
     outcome_merged[col] = outcome_merged[col].fillna(0)
 
 outcome_merged["gender_female_miss"] = outcome_merged["gender_female_miss"].fillna(1)
-outcome_merged.to_csv('outcome_meged.csv',index=False)
+outcome_merged = outcome_merged.sort_values(by='email')
+outcome_merged.to_csv('outcome_merged.csv',index=False)
+
 ###### Randomization
 
 # data = pd.read_excel('../data/2019_2020_RosterDemo_Fall2019_CoachingSessions_Final.xls')
