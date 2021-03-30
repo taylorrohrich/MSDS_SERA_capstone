@@ -21,5 +21,4 @@ read -p "Enter Webapp Bucket Name: " parsed_bucket
 
 # Get api gateway endpoint
 
-
 aws apigateway get-rest-apis --query 'items[?name==`sera-api`]'

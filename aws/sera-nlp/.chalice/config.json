@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "app_name": "sera-nlp",
+  "stages": {
+    "dev": {
+      "lambda_functions": {
+        "on_raw_data_upload": {
+          "manage_iam_role": false,
+          "iam_role_arn": "arn:aws:iam::025949264192:role/LambdaS3ReadWrite",
+          "lambda_memory_size": 300,
+          "lambda_timeout": 360
+        }
+      },
+      "automatic_layer": true
+    }
+  }
+}
