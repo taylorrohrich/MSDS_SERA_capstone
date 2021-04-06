@@ -1,28 +1,5 @@
 {
-  "resources": [
-    {
-      "name": "managed-layer",
-      "resource_type": "lambda_layer",
-      "layer_version_arn": "arn:aws:lambda:us-east-1:025949264192:layer:sera-api-dev-managed-layer:9"
-    },
-    {
-      "name": "default-role",
-      "resource_type": "iam_role",
-      "role_arn": "arn:aws:iam::025949264192:role/sera-api-dev",
-      "role_name": "sera-api-dev"
-    },
-    {
-      "name": "api_handler",
-      "resource_type": "lambda_function",
-      "lambda_arn": "arn:aws:lambda:us-east-1:025949264192:function:sera-api-dev"
-    },
-    {
-      "name": "rest_api",
-      "resource_type": "rest_api",
-      "rest_api_id": "nzjj6m9o33",
-      "rest_api_url": "https://nzjj6m9o33.execute-api.us-east-1.amazonaws.com/api/"
-    }
-  ],
+  "resources": [],
   "schema_version": "2.0",
   "backend": "api"
 }

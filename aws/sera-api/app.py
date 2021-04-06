@@ -1,6 +1,6 @@
 from chalice import Chalice,BadRequestError, Response
 from chalicelib.utils import *
-from chalicelib.constants import *
+from chalicelib.env import *
 import mysql.connector
 import pandas as pd
 app = Chalice(app_name='sera-api')
@@ -10,7 +10,7 @@ conn = None
 def get_conn():
     global conn
     if conn is None:
-        conn = mysql.connector.connect(user=usr, password=pswd, host=endpoint, database=dbname)
+        conn = mysql.connector.connect(user=user, password=password, host=host, database=database)
     return conn
 
 @app.route('/json',cors=True)
@@ -51,7 +51,7 @@ def tracker():
 #     }
 #     body = contents
 #     return Response(body=body, headers=headers)
-# connection = get_conn()
+#connection = get_conn()
 # # cursor = connection.cursor(buffered=True)
 # # # view table
 # # cursor.execute()

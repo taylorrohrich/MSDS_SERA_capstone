@@ -1,0 +1,7 @@
+flask
+nltk
+pandas
+numpy
+sklearn
+scipy
+boto3
