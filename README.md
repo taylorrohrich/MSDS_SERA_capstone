@@ -38,6 +38,8 @@ Container code found in `sera-nlp-container`. See [Docker Documentation](https:/
 
 #### Helper Files
 
+To run these files, make sure to have the `AWS cli` installed and have run `aws configure` with credentials provided by a SERA teammember.
+
 ##### uploadData.sh
 
 Prompts for folder in local directory to upload to NLP raw data S3 bucket.
