@@ -1,0 +1,250 @@
+id,sid,coder_num,codingtype,cid
+2,5,1,Norm,Rachel G
+2,5,2,Norm,Rachel L
+2,6,1,Single,Maggie
+3,5,1,Single,Rachel L
+3,6,1,Norm,Maggie
+3,6,2,Norm,Claire
+5,5,1,Norm,Claire
+5,5,2,Norm,Rachel G
+5,6,1,Single,Maggie
+7,5,1,Single,Rachel G
+7,6,1,Norm,Maggie
+7,6,2,Norm,Rachel G
+10,5,1,Single,Rachel G
+10,6,1,Double ,Maggie
+10,6,2,Double ,Rachel L
+13,5,1,Single,Maggie
+13,6,1,Single,Claire
+14,5,1,Norm,Claire
+14,5,2,Norm,Rachel G
+14,6,1,Single,Rachel G
+16,5,1,Double ,Rachel G
+16,5,2,Double ,Claire
+16,6,1,Single,Rachel G
+19,5,1,Single,Maggie
+19,6,1,Single,Maggie
+20,5,1,Single,Maggie
+20,6,1,Group Norm,Claire
+20,6,2,Group Norm,Group
+22,5,1,Double ,Maggie
+22,5,2,Double ,Rachel G
+22,6,1,Norm,Rachel L
+22,6,2,Norm,Claire
+23,5,1,Norm,Rachel G
+23,5,2,Norm,Maggie
+23,6,1,Double ,Rachel L
+23,6,2,Double ,Rachel G
+25,5,1,Double ,Claire
+25,5,2,Double ,Maggie
+25,6,1,Single,Maggie
+26,5,1,Single,Claire
+26,6,1,Single,Rachel G
+28,5,1,Single,Rachel L
+28,6,1,Norm,Maggie
+28,6,2,Norm,Claire
+29,5,1,Single,Claire
+29,6,1,Norm,Rachel G
+29,6,2,Norm,Claire
+30,5,1,Norm,Rachel L
+30,5,2,Norm,Maggie
+30,6,1,Single,Rachel G
+34,5,1,Double ,Rachel L
+34,5,2,Double ,Rachel G
+34,6,1,Single,Maggie
+35,5,1,Double ,Maggie 
+35,5,2,Double ,Rachel L
+35,6,1,Double ,Claire
+35,6,2,Double ,Rachel G
+36,5,1,Single,Rachel L
+36,6,1,Single,Rachel G
+37,5,1,Double ,Claire
+37,5,2,Double ,Rachel G
+37,6,1,Double ,Rachel L
+37,6,2,Double ,Claire
+38,5,1,Single,Maggie
+38,6,1,Single,Maggie
+39,5,1,Single,Rachel G
+39,6,1,Norm,Rachel L
+39,6,2,Norm,Claire
+40,5,1,Single,Maggie
+40,6,1,Single,Maggie
+41,5,1,Norm,Claire
+41,5,2,Norm,Rachel G
+41,6,1,Double ,Maggie
+41,6,2,Double ,Rachel G
+42,5,1,Single,Rachel G
+42,6,1,Single,Maggie
+43,5,1,Double ,Claire
+43,5,2,Double ,Maggie 
+43,6,1,Single,Maggie
+44,5,1,Double ,Rachel G
+44,5,2,Double ,Maggie
+44,6,1,Single,Maggie
+45,5,1,Double ,Claire
+45,5,2,Double ,Rachel L
+45,6,1,Norm,Maggie
+45,6,2,Norm,Rachel L
+46,5,1,Norm,Rachel G
+46,5,2,Norm,Rachel L
+46,6,1,Single,Maggie
+47,5,1,Single,Rachel L
+49,5,1,Single,Claire
+49,6,1,Single,Rachel G
+50,5,1,Single,Rachel L
+50,6,1,Norm,Rachel L
+50,6,2,Norm,Maggie
+51,5,1,Single,Maggie
+51,6,1,Single,Maggie
+52,5,1,Single,Maggie
+52,6,1,Single,Rachel G
+53,5,1,Single,Claire
+53,6,1,Single,Rachel G
+54,5,1,Single,Maggie
+54,6,1,Single,Claire
+57,5,1,Single,Maggie
+57,6,1,Norm,Claire
+57,6,2,Norm,Rachel G
+58,5,1,Single,Rachel G
+58,6,1,Single,Rachel G
+59,5,1,Single,Claire
+59,6,1,Single,Maggie
+61,5,1,Double ,Rachel L
+61,5,2,Double ,Maggie
+61,6,1,Single,Maggie
+62,5,1,Single,Maggie
+62,6,1,Single,Rachel G
+63,5,1,Norm,Maggie
+63,5,2,Norm,Rachel L
+63,6,1,Single,Claire
+64,5,1,Single,Rachel L
+64,6,1,Single,Claire
+65,5,1,Single,Rachel L
+65,6,1,Single,Claire
+66,5,1,Double ,Rachel G
+66,5,2,Double ,Claire
+66,6,1,Single,Maggie
+67,5,1,Single,Rachel L
+67,6,1,Single,Rachel L
+68,5,1,Single,Rachel G
+68,6,1,Double ,Claire
+68,6,2,Double ,Maggie
+70,5,1,Single,Rachel G
+70,6,1,Double ,Rachel L
+70,6,2,Double ,Rachel G
+71,5,1,Single,Rachel L
+71,6,1,Single,Maggie
+72,5,1,Single,Rachel G
+72,6,1,Norm,Rachel L
+72,6,2,Norm,Claire
+73,5,1,Single,Rachel G
+73,6,1,Single,Claire
+74,5,1,Double ,Maggie
+74,5,2,Double ,Rachel G
+74,6,1,Single,Maggie
+75,5,1,Single,Claire
+75,6,1,Single,Rachel L
+76,5,1,Single,Maggie
+76,6,1,Single,Rachel G
+77,5,1,Single,Maggie
+77,6,1,Norm,Claire
+77,6,2,Norm,Rachel G
+78,5,1,Single,Rachel L
+78,6,1,Norm,Claire
+78,6,2,Norm,Maggie
+79,5,1,Single,Maggie
+79,6,1,Double ,Claire
+79,6,2,Double ,Maggie
+80,5,1,Single,Claire
+80,6,1,Norm,Rachel G
+80,6,2,Norm,Rachel L
+81,5,1,Single,Rachel L
+81,6,1,Norm,Claire
+81,6,2,Norm,Maggie
+82,5,1,Single,Rachel G
+82,6,1,Norm,Rachel L
+82,6,2,Norm,Maggie
+83,5,1,Single,Rachel L
+83,6,1,Single,Rachel G
+84,5,1,Norm,Rachel G
+84,5,2,Norm,Maggie
+84,6,1,Double ,Rachel L
+84,6,2,Double ,Claire
+85,5,1,Single,Claire
+85,6,1,Double ,Maggie
+85,6,2,Double ,Rachel G
+86,5,1,Single,Claire
+86,6,1,Single,Rachel G
+87,5,1,Single,Maggie
+87,6,1,Single,Maggie
+88,5,1,Single,Rachel G
+88,6,1,Single,Claire
+89,5,1,Single,Maggie
+89,6,1,Single,Maggie
+91,5,1,Single,Claire
+91,6,1,Single,Maggie
+92,5,1,Single,Rachel L
+92,6,1,Double ,Claire
+92,6,2,Double ,Rachel L
+93,5,1,Single,Rachel L
+93,6,1,Single,Maggie
+94,5,1,Single,Rachel L
+94,6,1,Single,Rachel G
+95,5,1,Single,Maggie
+95,6,1,Single,Maggie
+96,5,1,Single,Maggie
+96,6,1,Double ,Maggie 
+96,6,2,Double ,Rachel G
+97,5,1,Single,Rachel G
+97,6,1,Single,Rachel L
+98,5,1,Norm,Rachel G
+98,5,2,Norm,Rachel L
+98,6,1,Single,Rachel G
+99,5,1,Single,Maggie
+99,6,1,Single,Rachel G
+100,5,1,Single,Rachel G
+100,6,1,Single,Rachel G
+101,5,1,Single,Maggie
+101,6,1,Single,Rachel G
+102,5,1,Group Norm,Claire
+102,5,2,Group Norm,Group
+102,6,1,Norm,Maggie
+102,6,2,Norm,Claire
+103,5,1,Double ,Rachel L
+103,5,2,Double ,Rachel G
+103,6,1,Norm,Maggie
+103,6,2,Norm,Rachel L
+104,5,1,Double ,Maggie
+104,5,2,Double ,Rachel G
+104,6,1,Norm,Maggie
+104,6,2,Norm,Rachel G
+105,5,1,Single,Rachel G
+105,6,1,Single,Rachel G
+106,5,1,Single,Claire
+106,6,1,Single,Rachel L
+107,5,1,Single,Rachel G
+107,6,1,Single,Rachel G
+108,5,1,Single,Rachel L
+108,6,1,Single,Maggie
+109,5,1,Single,Rachel L
+109,6,1,Single,Rachel G
+111,5,1,Single,Rachel G
+111,6,1,Norm,Rachel G
+111,6,2,Norm,Rachel L
+113,5,1,Single,Rachel G
+113,6,1,Single,Rachel G
+114,5,1,Single,Maggie
+114,6,1,Double ,Rachel L
+114,6,2,Double ,Maggie
+115,5,1,Single,Claire
+115,6,1,Single,Rachel G
+117,5,1,Double ,Rachel G
+117,5,2,Double ,Maggie
+117,6,1,Single,Rachel G
+118,5,1,Single,Claire
+118,6,1,Single,Rachel L
+119,5,1,Norm,Rachel L
+119,5,2,Norm,Claire
+119,6,1,Single,Maggie
+120,5,1,Single,Rachel G
+120,6,1,Single,Claire

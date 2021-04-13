@@ -1,0 +1,6 @@
+endpoint = "seratestdatabase.c4cjk1vto1om.us-east-2.rds.amazonaws.com"
+port = "3306"
+usr = "admin"
+pswd = "seracapstone"
+region = "us-east-2b"
+dbname = "teachsim"

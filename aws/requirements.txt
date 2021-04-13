@@ -1,0 +1,7 @@
+chalice
+pandas
+numpy
+mysql-connector-python
+pymysql
+xlrd
+mysql.connector
