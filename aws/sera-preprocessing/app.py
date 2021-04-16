@@ -3,6 +3,7 @@ import pandas as pd
 import pymysql
 from chalicelib.data_cleaning import data_cleaning
 from chalicelib.env import *
+import chalicelib.rdsFunctions as rd
 import chalicelib.trackerFunctions as tr 
 import boto3
 
@@ -63,6 +64,43 @@ def on_raw_data_upload(event):
 
 
 
+@app.on_s3_event(bucket=parsed_bucket, events=['s3:ObjectCreated:Put'])
+def handler(event):
+
+
+    ## Fake Temporary Data
+    #test_data = {'id_participant':['testID1', 'testID2'], 'id_section':[3,2], 'id_site':[1,1], 'id_year':[2021, 1819], 'fb_treat_cond':[1,0], 's18_treat_cond':[3,2]}
+    #uploaded_data = pd.DataFrame(test_data)
+
+    ## Connect to S3
+    s3 = boto3.client('s3')
+    obj = s3.get_object(Bucket=event.bucket, Key=event.key)
+    uploaded_data = pd.read_csv(obj['Body']) 
+
+
+    ## Connect to Database ##
+    # Configuration Values
+    endpoint = host
+    username = user
+    database_name = database
+
+    # Connection
+    connection = pymysql.connections.Connection(user=username, passwd=password, host=endpoint, db=database_name)
+
+    ## Create Cursor for Database ##
+    cursor1 = connection.cursor()
+
+    ### Generate and Execute Queries ###
+    tables = ['Identifiers', 'Survey_Measures', 'Participant_Measures', 'Performance_Measures']
+    for table in tables:
+        queries = rd.generateQueries(uploaded_data, table, cursor1)
+        for query in queries:
+            cursor1.execute(query)
+
+    connection.commit()
+    connection.close()
+
+    return {'event': 'done'}
 # The view function above will return {"hello": "world"}
 # whenever you make an HTTP GET request to '/'.
 #
