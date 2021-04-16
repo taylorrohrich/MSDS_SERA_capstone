@@ -3,6 +3,8 @@ from chalicelib.utils import *
 from chalicelib.env import *
 import mysql.connector
 import pandas as pd
+import boto3
+
 app = Chalice(app_name='sera-api')
 
 conn = None
@@ -32,6 +34,27 @@ def csv():
        return fetchData(request,conn,'csv')
     except:
         raise BadRequestError('Query params are not valid.')
+
+
+@app.route('/nlp',cors=True)
+def csv():
+    s3_client = boto3.client('s3')
+    request = app.current_request.to_dict()
+    query_params = request["query_params"]
+    conn = get_conn()
+    # try:
+    filename=query_params["filename"]
+    s3_client.download_file('sera-nlp-parsed-data', f"{filename}.csv", f"/tmp/{filename}.csv")
+    with open(f"/tmp/{filename}.csv", "rb") as f:
+        contents = f.read()
+    f.close()
+    headers = {
+    "Content-Type": "text/csv"
+    }
+    body = contents
+    return Response(body=body, headers=headers)
+    # except:
+    #     raise BadRequestError('Query params are not valid.')
 
 @app.route('/tracker',cors=True)
 def tracker():

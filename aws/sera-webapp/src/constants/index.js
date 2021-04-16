@@ -1,6 +1,6 @@
 import {API_ENDPOINT} from './env'
 const TRACKER_COLUMNS=['Participant_ID','Participant_Information_Survey','Baseline_Survey','Classroom_Norms_Coding_Baseline','Classroom_Norms_Coding_Precoach','Classroom_Norms_Coding_Postcoach','Classroom_Norms_Coding_Exit','Classroom_Norms_Post_Sim_Survey','Exit_Survey']
-const ROUTES={JSON:{path:"/json",parameters:['time_list','measure_list','group_list','specific_measure_list','field_type_list']},CSV:{path:"/csv",parameters:['time_list','measure_list','group_list','specific_measure_list','field_type_list']},TRACKER:{path:'/tracker',parameters:[]}}
+const ROUTES={NLP: {path:'/nlp', parameters:['filename']},JSON:{path:"/json",parameters:['time_list','measure_list','group_list','specific_measure_list','field_type_list']},CSV:{path:"/csv",parameters:['time_list','measure_list','group_list','specific_measure_list','field_type_list']},TRACKER:{path:'/tracker',parameters:[]}}
 const QUERY_FIELDS=[
     {type: 'time_list', label: 'Time',values :['All','Spring 2018','Fall 2018','Spring 2019','Fall 2019']},
     {type: 'measure_list',label: 'Measure',values :['Identifiers','Participant Measures','Survey Measures','Performance Measures']},
