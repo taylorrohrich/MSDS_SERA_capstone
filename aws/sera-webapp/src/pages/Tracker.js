@@ -20,7 +20,6 @@ const getTrackerInfo = (callback)=>{
 const Tracker = ()=>{
   const [trackerInfo,setTrackerInfo]= useState([])
   useEffect(()=>getTrackerInfo(setTrackerInfo),[])
-  console.log(trackerInfo)
   return <div>
     <Table columns={TRACKER_COLUMNS.map(col=>col.split('_').join(' '))} rows={trackerInfo}/>
   </div>

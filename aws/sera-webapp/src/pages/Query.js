@@ -1,5 +1,5 @@
 import { useState } from "react"
-import {CheckBoxGroup} from "../components"
+import {CheckBoxGroup,Button} from "../components"
 import {QUERY_FIELDS,LOOKUP_SURVEY,LOOKUP_PERFORMANCE} from "../constants"
 import {api_request} from "../utils"
 
@@ -54,6 +54,10 @@ return <div style={{marginTop:20}}>
 </div>
 <div style={{display:'flex',cursor:'pointer',justifyContent:'center',alignItems:'center',margin:20}}>
     <div onClick={()=>submitQuery(itemsGroups)}style={{color:'white',backgroundColor:'#232D4B', padding: 10,paddingLeft: 20,paddingRight:20,borderRadius:25}}>Submit</div>
+    </div>
+    <div style={{display:'flex',flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+        <Button onClick={()=> api_request("NLP",{filename:'normal_comparison_output_status'})}>Download NLP Normal Comparison Output</Button>
+        <Button onClick={()=> api_request("NLP",{filename:'within_study_normal_average_output_status'})}>Download NLP Within Study Average Output</Button>
     </div>
 </div>
 
