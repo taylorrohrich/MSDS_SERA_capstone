@@ -1,40 +1,34 @@
+# To add a new cell, type '# %%'
+# To add a new markdown cell, type '# %% [markdown]'
+# %% [markdown]
+# # Query Page API
 
+# %%
 import pandas as pd
-import os
+import numpy as np
 import mysql.connector
-from chalice import Chalice,BadRequestError, Response
 
-def parse_url_params(params):
-    defaultParams = {
-        'time_list':[],
-        'measure_list':[],
-        'group_list':[],
-        'specific_measure_list': [],
-        'field_type_list': [],
-        }
-    for param in defaultParams.keys():
-        if param in params:
-            defaultParams[param] = params[param].split(',')
-    return defaultParams
+# %% [markdown]
+# ## Connect to Database
 
-def fetchData(request,conn,returnType):
-    query_params = request["query_params"]
-    parsed_params = parse_url_params(query_params)
-    req = sqlRequest(conn,measure_list=parsed_params['measure_list'] ,time_list = parsed_params['time_list'],specific_measure_list = parsed_params['specific_measure_list'],field_type = parsed_params['field_type_list'])
-    df = execute(req, conn)
-    if returnType == 'json':
-        return df.to_json()
-    else:
-        df.to_csv(f'/tmp/query.csv', index=False)
-        with open('/tmp/query.csv', "rb") as f:
-            contents = f.read()
-        f.close()
-        headers = {
-        "Content-Type": "text/csv"
-        }
-        body = contents
-        return Response(body=body, headers=headers)
+# %%
+endpoint = "seratestdatabase.c4cjk1vto1om.us-east-2.rds.amazonaws.com"
+port = "3306"
+usr = "admin"
+pswd = "seracapstone"
+region = "us-east-2b"
+dbname = "teachsim"
 
+
+# %%
+cnx = mysql.connector.connect(user=usr, password=pswd, host=endpoint, database=dbname)
+
+
+# %%
+cursor = cnx.cursor(buffered=True)
+
+
+# %%
 def showTable(tableName, cursor):
     query = "SELECT * FROM " + tableName + ";"
     cursor.execute(query)
@@ -53,6 +47,17 @@ def execute(query, cursor):
     return df
 
 
+# %%
+showTable("Identifiers", cursor)
+
+
+# %%
+['Identifiers', 'Participant_Measures', 'Survey_Measures', 'Performance_Measures', 'Participant_Tracker']
+
+# %% [markdown]
+# ## Functions
+# %% [markdown]
+# ### Background Functions
 
 # %%
 #define a function to convert the result of the query into a pandas table
@@ -190,23 +195,24 @@ def generate_mapping(cursor):
 # %%
 # this function takes the overall measures provided and the specific measures and returns 
 # the relevant variables in a list
-def get_variables(cursor, measure_list=[], specific_measure_list=[], field_type=None):
+def get_variables(cursor, measure_list, specific_measure_list=None, field_type=None):
     
     # the first half returns the relevant variables mapped from measure_list and specific_measure_list
     cols = []
     mapping = generate_mapping(cursor)
-    measures = ['Identifiers', 'Participant_Measures', 'Survey_Measures', 'Performance_Measures', 'Participant_Tracker']
     for measure in measure_list:
-        table_cols = table_variables([measure], cursor)
-        cols = cols + table_cols
-    for specific_measure in specific_measure_list:
-        parentMeasure = None
-        for measure in mapping.keys():
-             if specific_measure in mapping[measure].keys():
-                 parentMeasure = measure
-                 break
-        if parentMeasure not in measure_list:
-              cols = cols + mapping[measure][specific_measure]
+        if measure in mapping.keys():
+            specific_checked = False
+            for specific in specific_measure_list:
+                if specific in mapping[measure].keys():
+                    specific_checked = True
+                    cols = cols + mapping[measure][specific]
+            if specific_checked == False:
+                table_cols = table_variables([measure], cursor)
+                cols = cols + table_cols
+        else:
+            table_cols = table_variables([measure], cursor)
+            cols = cols + table_cols
             
     cols = ['id_participant'] + cols
     cols = list(set(cols))
@@ -259,14 +265,47 @@ def sub_query(time_list):
 # ### Overall Function
 
 # %%
-def sqlRequest(cursor, measure_list, time_list, specific_measure_list, field_type):
+def request(cursor, measure_list, time_list, specific_measure_list, field_type):
     query = "SELECT "
     sub = sub_query(time_list)
-    cols = get_variables(cursor=cursor, measure_list=measure_list, specific_measure_list=specific_measure_list, field_type=field_type)
+    measures = ['Identifiers', 'Participant_Measures', 'Survey_Measures', 'Performance_Measures', 'Participant_Tracker']
+    cols = get_variables(cursor=cursor, measure_list=measures, specific_measure_list=specific_measure_list, field_type=field_type)
     for col in cols:
         query = query + "a." + col + ", "
     query = query[:-2] + " FROM ( " + sub + " ) a"
     
     return query
     
-        
+
+# %% [markdown]
+# ## Test
+
+# %%
+measures = ['Identifiers', 'Participant_Measures', 'Survey_Measures', 'Performance_Measures', 'Participant_Tracker']
+query = request(cursor, measure_list=measures, time_list=['All'], specific_measure_list=[], field_type=['Numeric', 'Text'])
+
+
+# # %%
+# sub = sub_query(['All'])
+# sub
+
+
+# # %%
+print(execute(query, cursor))
+
+
+# # %%
+
+
+# # %% [markdown]
+# # ## Close Database Connection
+
+# # %%
+# cnx.commit()
+# cnx.close()
+
+
+# # %%
+
+
+

@@ -13,7 +13,7 @@ def get_conn():
     global conn
     if conn is None:
         conn = mysql.connector.connect(user=user, password=password, host=host, database=database)
-    return conn
+    return conn.cursor(buffered=True)
 
 @app.route('/json',cors=True)
 def json():
@@ -30,10 +30,10 @@ def csv():
     request = app.current_request.to_dict()
     query_params = request["query_params"]
     conn = get_conn()
-    try:
-       return fetchData(request,conn,'csv')
-    except:
-        raise BadRequestError('Query params are not valid.')
+    # try:
+    return fetchData(request,conn,'csv')
+    # except:
+    #     raise BadRequestError('Query params are not valid.')
 
 
 @app.route('/nlp',cors=True)

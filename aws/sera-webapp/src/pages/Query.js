@@ -1,6 +1,6 @@
 import { useState } from "react"
 import {CheckBoxGroup,Button} from "../components"
-import {QUERY_FIELDS,LOOKUP_SURVEY,LOOKUP_PERFORMANCE} from "../constants"
+import {QUERY_FIELDS} from "../constants"
 import {api_request} from "../utils"
 
 
@@ -20,17 +20,7 @@ const switchItem = (items,index,type)=>{
 
 const submitQuery=(itemsGroups)=>{
     const selectedVals = Object.keys(itemsGroups).reduce((acc,key)=>{
-        let selectedValues = ''
-        if (key === 'specific_performance'){
-            selectedValues = itemsGroups[key].values.filter(val=>val.value).map(val=>LOOKUP_PERFORMANCE[val.text]).flat().join(',')
-
-        }
-        else if (key === 'specific_survey'){
-            selectedValues = itemsGroups[key].values.filter(val=>val.value).map(val=>LOOKUP_SURVEY[val.text]).flat().join(',')
-        }
-        else{
-            selectedValues = itemsGroups[key].values.filter(val=>val.value).map(val=>val.text).join(',')
-        }
+        const selectedValues = itemsGroups[key].values.filter(val=>val.value).map(val=>val.text).join(',')
         if (!selectedValues.length) return acc
         if (key.includes('specific')){
             if (acc['specific_measure_list']){
@@ -41,6 +31,7 @@ const submitQuery=(itemsGroups)=>{
         }
         return  {...acc,[key]:selectedValues}
     },{})
+    console.log(selectedVals)
     api_request("CSV",selectedVals)
 }
 const Query = ()=>{

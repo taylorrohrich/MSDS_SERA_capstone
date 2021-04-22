@@ -3,7 +3,7 @@
     {
       "name": "managed-layer",
       "resource_type": "lambda_layer",
-      "layer_version_arn": "arn:aws:lambda:us-east-1:025949264192:layer:sera-api-dev-managed-layer:20"
+      "layer_version_arn": "arn:aws:lambda:us-east-1:025949264192:layer:sera-api-dev-managed-layer:31"
     },
     {
       "name": "default-role",
@@ -19,8 +19,8 @@
     {
       "name": "rest_api",
       "resource_type": "rest_api",
-      "rest_api_id": "ckpoin2u1g",
-      "rest_api_url": "https://ckpoin2u1g.execute-api.us-east-1.amazonaws.com/api/"
+      "rest_api_id": "jdw6shv4r9",
+      "rest_api_url": "https://jdw6shv4r9.execute-api.us-east-1.amazonaws.com/api/"
     }
   ],
   "schema_version": "2.0",
