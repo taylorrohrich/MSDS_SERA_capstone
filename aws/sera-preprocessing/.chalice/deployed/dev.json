@@ -1,5 +1,39 @@
 {
-  "resources": [],
+  "resources": [
+    {
+      "name": "managed-layer",
+      "resource_type": "lambda_layer",
+      "layer_version_arn": "arn:aws:lambda:us-east-1:025949264192:layer:sera-preprocessing-dev-managed-layer:13"
+    },
+    {
+      "name": "on_raw_data_upload",
+      "resource_type": "lambda_function",
+      "lambda_arn": "arn:aws:lambda:us-east-1:025949264192:function:sera-preprocessing-dev-on_raw_data_upload"
+    },
+    {
+      "name": "on_raw_data_upload-s3event",
+      "resource_type": "s3_event",
+      "bucket": "sera-raw-bucket",
+      "lambda_arn": "arn:aws:lambda:us-east-1:025949264192:function:sera-preprocessing-dev-on_raw_data_upload"
+    },
+    {
+      "name": "default-role",
+      "resource_type": "iam_role",
+      "role_arn": "arn:aws:iam::025949264192:role/sera-preprocessing-dev",
+      "role_name": "sera-preprocessing-dev"
+    },
+    {
+      "name": "handler",
+      "resource_type": "lambda_function",
+      "lambda_arn": "arn:aws:lambda:us-east-1:025949264192:function:sera-preprocessing-dev-handler"
+    },
+    {
+      "name": "handler-s3event",
+      "resource_type": "s3_event",
+      "bucket": "sera-parsed-bucket",
+      "lambda_arn": "arn:aws:lambda:us-east-1:025949264192:function:sera-preprocessing-dev-handler"
+    }
+  ],
   "schema_version": "2.0",
   "backend": "api"
 }

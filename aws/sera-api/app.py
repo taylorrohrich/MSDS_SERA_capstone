@@ -8,20 +8,22 @@ import boto3
 app = Chalice(app_name='sera-api')
 
 conn = None
+cursor = None
 
 def get_conn():
     global conn
+    global cursor
     if conn is None:
         conn = mysql.connector.connect(user=user, password=password, host=host, database=database)
-    return conn.cursor(buffered=True)
+        cursor = conn.cursor(buffered=True)
 
 @app.route('/json',cors=True)
 def json():
     request = app.current_request.to_dict()
     query_params = request["query_params"]
-    conn = get_conn()
+    get_conn()
     try:
-       return fetchData(request,conn,'json')
+       return fetchData(request,cursor,'json')
     except:
         raise BadRequestError('Query params are not valid.')
 
@@ -29,9 +31,9 @@ def json():
 def csv():
     request = app.current_request.to_dict()
     query_params = request["query_params"]
-    conn = get_conn()
+    get_conn()
     # try:
-    return fetchData(request,conn,'csv')
+    return fetchData(request,cursor,'csv')
     # except:
     #     raise BadRequestError('Query params are not valid.')
 
@@ -41,7 +43,6 @@ def csv():
     s3_client = boto3.client('s3')
     request = app.current_request.to_dict()
     query_params = request["query_params"]
-    conn = get_conn()
     # try:
     filename=query_params["filename"]
     s3_client.download_file('sera-nlp-parsed-data', f"{filename}.csv", f"/tmp/{filename}.csv")
@@ -58,7 +59,7 @@ def csv():
 
 @app.route('/tracker',cors=True)
 def tracker():
-    conn = get_conn()
+    get_conn()
     try:
         result=pd.read_sql_query("SELECT * FROM Participant_Tracker", con=conn)
         return result.to_json(orient='index')
