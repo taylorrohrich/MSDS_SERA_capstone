@@ -24,7 +24,7 @@ def handler(event):
     # Configuration Values
     endpoint = "seratestdatabase.c4cjk1vto1om.us-east-2.rds.amazonaws.com"
     username = "admin"
-    password = "seracapstone"
+    password = "your_password_here"
     database_name = "teachsim"
 
     # Connection
