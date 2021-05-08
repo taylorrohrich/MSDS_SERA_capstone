@@ -9,15 +9,19 @@ To fully run all of the code in the repository below, install the following pack
 
 ## File Structure:
 
-- stata_replication
-  - Work related to reproducing Stata code in python
-- Stata
-  - Raw Stata files
-- RDS
-  - Work related to creating and querying the database
-- aws
-  - Work related to AWS
 - API Gateway
-  - Work related to querying via the API
-- nlp
-  - Work related to NLP Captstone deployment in the cloud
+  - Notebooks related to automating SQL queries
+- AWS
+  - Files related to setting up the pipeline on the AWS side
+- Data Cleaning
+  - Work related to reproducing Stata code in python and functions created for data cleaning
+- Capstone_Paper.pdf
+  - The team's paper related to the choice of AWS and an outline of the data pipeline design and the study used to pilot its implementation
+- Documentation.docx
+  - Comprehensive instructions that walk through all of the files and a step-by-step guide to setting up the pipeline from start to finish
+  - Includes code review and more details around the files in this repository
+- NLP
+  - Files related to adding the NLP data to the pipeline and database
+- RDS
+  - Work related to creating, populating, and querying the database
+
