@@ -1,0 +1,16 @@
+{
+  "version": "2.0",
+  "app_name": "update-database",
+  "stages": {
+    "dev": {
+      "api_gateway_stage": "api",
+      "lambda_functions": {
+        "handler": {
+          "manage_iam_role": false,
+          "iam_role_arn": "arn:aws:iam::025949264192:role/LambdaS3ReadWrite",
+          "lambda_memory_size": 300,
+          "lambda_timeout": 180}
+        }
+    }
+  }
+}
